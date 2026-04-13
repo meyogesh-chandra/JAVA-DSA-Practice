@@ -19,15 +19,24 @@ public class Implementation {
         a.left = b; a.right=c;
         b.left = d; b.right=e;
         c.left = f; c.right=g;
-        display(a);
+        preorder(a);
+        System.out.println();
+        inorder(a);
+        System.out.println();
+        postorder(a);
         System.out.println();
         System.out.println(size(a));
         System.out.println(sum(a));
         System.out.println(max(a));
+        System.out.println(level(a));
 
 
 
 
+    }
+    private static int level(Node root){
+        if(root==null) return 0;
+        return 1+Math.max(level(root.left),level(root.right));
     }
     private static int size(Node root){
         if(root==null)return 0;
@@ -43,11 +52,27 @@ public class Implementation {
         if(root==null) return 0;
         return root.val+sum(root.left)+sum(root.right);
     }
-    private static void display(Node root){
+    private static void preorder(Node root){
         if(root==null) return;
         System.out.print(root.val+" ");
-        display(root.left);
-        display(root.right);
+        preorder(root.left);
+        preorder(root.right);
+
+    }
+    private static void inorder(Node root){
+        if(root==null) return;
+
+        inorder(root.left);
+        System.out.print(root.val+" ");
+        inorder(root.right);
+
+    }
+    private static void postorder(Node root){
+        if(root==null) return;
+
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.val+" ");
 
     }
 }

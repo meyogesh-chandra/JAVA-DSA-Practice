@@ -1,5 +1,6 @@
 package Stacks;
 
+import java.sql.SQLOutput;
 import java.util.Stack;
 
 public class BasicSTLOfStacks {
@@ -15,6 +16,9 @@ public class BasicSTLOfStacks {
         System.out.println(st);
         st.pop();
         System.out.println(st+" "+st.size());
+        System.out.println(st.peek());
+        System.out.println(st.pop());
+        String s = st.pop();
 
     }
 }
