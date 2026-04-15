@@ -1,4 +1,8 @@
 package BinaryTree;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Node{
     int val;
     Node left;
@@ -7,8 +11,21 @@ class Node{
         this.val=val;
     }
 }
+class Pair{
+    Node node;
+    int level;
+    Pair(Node node, int level){
+        this.node = node;
+        this.level = level;
+    }
+}
 public class Implementation {
     public static void main(String[] args) {
+        //        3
+        //      /   \
+        //     4     2
+        //    / \   /   \
+        //   -1  1  6    9
         Node a =new Node(3);
         Node b =new Node(4);
         Node c =new Node(2);
@@ -29,7 +46,44 @@ public class Implementation {
         System.out.println(sum(a));
         System.out.println(max(a));
         System.out.println(level(a));
+        levelOrder(a);//for bfs traversal
+        levelOrderLineWise(a);
+        kThLavel(a,0,2);
 
+    }
+    private static void kThLavel(Node root,int level,int k){
+        if(root == null) return;
+        if(level == k) System.out.print(root.val+" ");
+        kThLavel(root.left,level+1,k);
+        kThLavel(root.right,level+1,k);
+    }
+    private static void levelOrderLineWise(Node root){
+        Queue<Pair> q = new LinkedList<>();
+        int currLevel = 0;
+        q.add(new Pair(root,0));
+        while(q.size()>0){
+            Pair front =q.remove();
+            if(front.level!=currLevel){
+                currLevel++;
+                System.out.println();
+            }
+            System.out.print(front.node.val+" ");
+            if(front.node.left!=null) q.add(new Pair(front.node.left,front.level+1));
+            if(front.node.right!=null) q.add(new Pair(front.node.right,front.level+1));
+        }
+        System.out.println();
+    }
+    private static void levelOrder(Node root){
+        //bfs traversal
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while(q.size()>0){
+            Node front =q.remove();
+            System.out.print(front.val+" ");
+            if(front.left!=null) q.add(front.left);
+            if(front.right!=null) q.add(front.right);
+        }
+        System.out.println();
 
 
 
