@@ -2,7 +2,21 @@ package BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
+class Quad{
+    int max;
+    int min;
+    int size;
+    int sum;
+    Quad(int max, int min, int sum, int size){
+        this.max=max;
+        this.min=min;
+        this.size=size;
+        this.sum = sum;
+    }
+    void display(){
+        System.out.println(max+" "+min+" "+size+" "+sum);
+    }
+}
 class Node{
     int val;
     Node left;
@@ -20,6 +34,16 @@ class Pair{
     }
 }
 public class Implementation {
+    public static Quad maxMinSizeSum(Node root){
+        if(root==null) return new Quad(Integer.MIN_VALUE,Integer.MAX_VALUE,0,0);
+        Quad lst = maxMinSizeSum(root.left);
+        Quad rst = maxMinSizeSum(root.right);
+        int max = Math.max(root.val,Math.max(lst.max,rst.max));
+        int min = Math.min(root.val,Math.min(lst.min,rst.min));
+        int size = 1+lst.size+rst.size;
+        int sum = root.val+lst.sum+rst.sum;
+        return new Quad(max,min,size,sum);
+    }
     public static void main(String[] args) {
         //        3
         //      /   \
@@ -49,6 +73,10 @@ public class Implementation {
         levelOrder(a);//for bfs traversal
         levelOrderLineWise(a);
         kThLavel(a,0,2);
+        System.out.println();
+        System.out.println(maxMinSizeSum(a).max);
+        System.out.println();
+        maxMinSizeSum(a).display();
 
     }
     private static void kThLavel(Node root,int level,int k){
